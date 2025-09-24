@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AMI_ID="09c813fb71547fc4f"
+AMI_ID="ami-09c813fb71547fc4f"
 SG_ID="sg-08bed850ebb359b45" #replace with your sg id 
 ZONE_ID="Z00777701H4XIKRG6FJNQ" #replace with your Zone ID
 DOMAIN_NAME="yuvarajreddy.fun"
