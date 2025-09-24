@@ -2,7 +2,8 @@
 
 AMI_ID="09c813fb71547fc4f"
 SG_ID="sg-08bed850ebb359b45" #replace with your sg id 
-
+ZONE_ID="" #replace with your Zone ID
+DOMAIN_NAME="yuvarajreddy.fun"
 
 for instance in $@
 do
@@ -10,9 +11,31 @@ do
 
     if [ $instance != "frontend" ]; then 
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
+        RECORD_NAME="$instance.$DOMAIN_NAME" #mongodb.yuvarajreddy.fun
     else
        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)  
+       RECORD_NAME="$DOMAIN_NAME" #yuvarajreddy.fun
+    else
     fi
 
     echo $instance:"$IP"
+
+      aws route53 change-resource-record-sets \
+    --hosted-zone-id $ZONE_ID \
+    --change-batch '
+    {
+        "Comment": "Updating record set"
+        ,"Changes": [{
+        "Action"              : "UPSERT"
+        ,"ResourceRecordSet"  : {
+            "Name"              : "'$RECORD_NAME'"
+            ,"Type"             : "A"
+            ,"TTL"              : 1
+            ,"ResourceRecords"  : [{
+                "Value"         : "'$IP'"
+            }]
+        }
+        }]
+        
+    }
 done
