@@ -2,7 +2,7 @@
 
 AMI_ID="09c813fb71547fc4f"
 SG_ID="sg-08bed850ebb359b45" #replace with your sg id 
-ZONE_ID="" #replace with your Zone ID
+ZONE_ID="Z00777701H4XIKRG6FJNQ" #replace with your Zone ID
 DOMAIN_NAME="yuvarajreddy.fun"
 
 for instance in $@
@@ -36,6 +36,6 @@ do
             }]
         }
         }]
-        
+
     }
 done
