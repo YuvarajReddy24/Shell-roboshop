@@ -17,7 +17,7 @@ do
         RECORD_NAME="$DOMAIN_NAME" # daws86s.fun
     fi
 
-    echo $instance:"$IP"
+    echo "$instance:$IP"
 
       aws route53 change-resource-record-sets \
     --hosted-zone-id $ZONE_ID \
